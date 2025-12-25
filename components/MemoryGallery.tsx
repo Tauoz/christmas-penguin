@@ -8,19 +8,19 @@ import { getCldImageUrl } from "next-cloudinary";
 const CLOUD_FOLDER = process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER || "";
 
 const memories = [
-    { name: "one", title: "Aquarium", date: "2025" },
-    { name: "two", title: "Dinner", date: "2025" },
-    { name: "three", title: "The Walk", date: "2025" },
-    { name: "four", title: "Sunset", date: "2025" },
-    { name: "five", title: "Beach", date: "2025" },
-    { name: "six", title: "Picnic", date: "2025" },
-    { name: "seven", title: "Drive", date: "2025" },
-    { name: "eight", title: "Hike", date: "2025" },
-    { name: "nine2", title: "Concert", date: "2025" },
-    { name: "ten", title: "Camping", date: "2025" },
-    { name: "eleven", title: "Museum", date: "2025" },
-    { name: "twelve", title: "Roadtrip", date: "2025" },
-    { name: "thirteen", title: "Picnic 2", date: "2025" },
+    { name: "one", title: "Is this Fate?", date: "2024" },
+    { name: "two", title: "First unofficial date", date: "2024" },
+    { name: "three", title: "Same footsteps", date: "2024" },
+    { name: "four", title: "Cool SunGlasses", date: "2024" },
+    { name: "five", title: "With capybara", date: "2024" },
+    { name: "six", title: "First discord call", date: "2024" },
+    { name: "seven", title: "First official Date", date: "2024" },
+    { name: "eight", title: "Hold my hand", date: "2024" },
+    { name: "nine2", title: "Closer for a picture", date: "2024" },
+    { name: "ten", title: "First series together", date: "2025" },
+    { name: "eleven", title: "Secret Date", date: "2025" },
+    { name: "twelve", title: "Last dorm meeting", date: "2025" },
+    { name: "thirteen", title: "Sate kout Penguin", date: "2025" },
 ];
 
 export default function MemoryGallery() {
