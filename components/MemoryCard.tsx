@@ -22,7 +22,7 @@ export default function MemoryCard({
 
     return (
         <motion.div
-            className="group flex flex-col items-center w-[300px] flex-shrink-0 bg-black rounded-xl p-2"
+            className="group flex flex-col items-center w-[400px] flex-shrink-0 rounded-xl p-2 border rounded-md"
             initial={{ y: 0 }}
             whileHover={{
                 y: -10,
@@ -42,7 +42,7 @@ export default function MemoryCard({
                         src={imageSrc}
                         alt={title || "Memory"}
                         fill
-                        sizes="300px"
+                        sizes="600px"
                         className="object-cover"
                     />
                 </motion.div>
@@ -52,8 +52,8 @@ export default function MemoryCard({
             </div>
 
             <div className="mt-2 text-center text-white">
-                {title && <p className="font-semibold text-sm">{title}</p>}
-                {date && <p className="text-[10px] opacity-50">{date}</p>}
+                {title && <p className="love-text font-semibold text-sm">{title}</p>}
+                {date && <p className="text-[15px]">{date}</p>}
             </div>
         </motion.div>
     );

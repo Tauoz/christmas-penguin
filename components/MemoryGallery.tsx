@@ -38,7 +38,7 @@ export default function MemoryGallery() {
     return (
         <div className="w-full h-screen flex flex-col justify-center">
             <div className="flex items-center justify-center gap-4 mb-8">
-                <h2 className="text-white/60 text-sm tracking-widest uppercase font-light">
+                <h2 className="christmas-title text-white/60 text-sm tracking-widest uppercase font-light">
                     Our Memories
                 </h2>
                 <LoveButton />
@@ -61,7 +61,7 @@ export default function MemoryGallery() {
                     </div>
                 ))}
 
-                <div className="flex-shrink-0 w-[5vw]" />
+                <div className="flex-shrink-0 w-[15vw]" />
             </div>
         </div>
     );

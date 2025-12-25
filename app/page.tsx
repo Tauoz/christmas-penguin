@@ -57,7 +57,7 @@ export default function ChristmasApp() {
                             >
                                 Christmas Gift
                             </h1>
-                            <p className="text-xl opacity-90 tracking-widest uppercase font-light">
+                            <p className="christmas-title text-xl opacity-90 tracking-widest uppercase font-light">
                                 Merry Christmas
                             </p>
                         </header>

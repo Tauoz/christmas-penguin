@@ -10,7 +10,7 @@ export default function SecretPage() {
 
     return (
         <div className="flex flex-col items-center justify-center w-screen h-screen bg-gradient-to-b from-[#ee9ca7] to-[#ffdde1]">
-            <h1>Merry Christmas 2025! This is a secret cookie 🍪</h1>
+            <h1 className="love-text">Merry Christmas 2025! This is a secret cookie 🍪</h1>
             <video
                 src={videoUrl}
                 controls

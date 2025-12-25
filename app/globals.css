@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas&family=Pacifico&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,4 +36,13 @@ body {
 
 .animate-grain {
   animation: grain 6s steps(10) infinite;
+}
+
+.christmas-title {
+  font-family: 'Mountains of Christmas', cursive;
+  color: #ffffff; /* festive red */
+}
+.love-text {
+  font-family: 'Pacifico', cursive;
+  color: #efeaeb; /* soft pink */
 }
