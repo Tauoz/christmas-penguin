@@ -1,65 +1,125 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import GiftBox from "@/components/GiftBox";
+import MemoryGallery from "@/components/MemoryGallery";
+
+const PASSWORD = process.env.NEXT_PUBLIC_GALLERY_PASSWORD || "";
+
+export default function ChristmasApp() {
+    const [showPassword, setShowPassword] = useState(false);
+    const [passwordInput, setPasswordInput] = useState("");
+    const [error, setError] = useState("");
+    const [unlocked, setUnlocked] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+        // Check if user previously unlocked the gallery
+        if (localStorage.getItem("galleryUnlocked") === "true") {
+            setUnlocked(true);
+        }
+    }, []);
+
+    const handlePasswordSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (passwordInput === PASSWORD) {
+            setUnlocked(true);
+            localStorage.setItem("galleryUnlocked", "true");
+        } else {
+            setError("Incorrect password!");
+            setPasswordInput("");
+        }
+    };
+
+    if (!mounted) return null;
+
+    return (
+        <main className="relative min-h-screen w-full bg-[#ee9ca7] flex items-center justify-center overflow-hidden">
+            <AnimatePresence mode="wait">
+                {/* 1. GIFT BOX SCREEN */}
+                {!showPassword && !unlocked && (
+                    <motion.div
+                        key="gift-screen"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 1.1 }}
+                        className="flex flex-col items-center"
+                    >
+                        <header className="text-center mb-12 text-white px-4">
+                            <h1
+                                className="text-5xl md:text-7xl font-bold drop-shadow-md mb-2"
+                                style={{
+                                    fontFamily:
+                                        "'Mountains of Christmas', cursive",
+                                }}
+                            >
+                                Christmas Gift
+                            </h1>
+                            <p className="text-xl opacity-90 tracking-widest uppercase font-light">
+                                Merry Christmas
+                            </p>
+                        </header>
+                        <GiftBox onOpen={() => setShowPassword(true)} />
+                    </motion.div>
+                )}
+
+                {/* 2. PASSWORD MODAL */}
+                {showPassword && !unlocked && (
+                    <motion.div
+                        key="password-screen"
+                        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-md px-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <motion.form
+                            onSubmit={handlePasswordSubmit}
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            className="bg-white p-8 rounded-3xl shadow-2xl flex flex-col gap-4 w-full max-w-sm"
+                        >
+                            <h2 className="text-center font-bold text-gray-800 text-lg">
+                                Enter Secret Code
+                            </h2>
+                            <input
+                                type="password"
+                                autoFocus
+                                value={passwordInput}
+                                onChange={(e) =>
+                                    setPasswordInput(e.target.value)
+                                }
+                                className="p-4 rounded-2xl border border-gray-100 bg-gray-50 text-black text-center text-xl outline-none focus:ring-2 focus:ring-pink-300 transition-all"
+                                placeholder="••••"
+                            />
+                            <button
+                                type="submit"
+                                className="bg-pink-500 text-white py-4 rounded-2xl font-bold hover:bg-pink-600 transition-all shadow-lg active:scale-95"
+                            >
+                                Unlock
+                            </button>
+                            {error && (
+                                <p className="text-red-500 text-xs text-center font-bold animate-pulse">
+                                    {error}
+                                </p>
+                            )}
+                        </motion.form>
+                    </motion.div>
+                )}
+
+                {/* 3. GALLERY SCREEN */}
+                {unlocked && (
+                    <motion.div
+                        key="gallery-screen"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="w-full h-full"
+                    >
+                        <MemoryGallery />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </main>
+    );
 }
